@@ -1,0 +1,159 @@
+CREATE TABLE ubicaciones (
+    id              BIGSERIAL PRIMARY KEY,
+    direccion       VARCHAR(255) NOT NULL,
+    ciudad          VARCHAR(100) NOT NULL,
+    departamento    VARCHAR(100) NOT NULL,
+
+    CONSTRAINT uk_ubicaciones_direccion_ciudad UNIQUE (direccion, ciudad)
+);
+
+CREATE INDEX idx_ubicaciones_ciudad ON ubicaciones(ciudad);
+
+CREATE TABLE agencias (
+    id              BIGSERIAL PRIMARY KEY,
+    nombre          VARCHAR(150) NOT NULL,
+    ubicacion_id    BIGINT NOT NULL REFERENCES ubicaciones(id),
+    activo          BOOLEAN NOT NULL DEFAULT TRUE,
+    fecha_creacion  TIMESTAMP NOT NULL DEFAULT now()
+);
+
+CREATE INDEX idx_agencias_ubicacion ON agencias(ubicacion_id);
+
+
+CREATE TABLE usuarios (
+    id              BIGSERIAL PRIMARY KEY,
+    nombre          VARCHAR(150) NOT NULL,
+    correo          VARCHAR(150) NOT NULL UNIQUE,
+    clave           VARCHAR(255) NOT NULL,
+    telefono        VARCHAR(20),
+    rol             VARCHAR(30) NOT NULL,
+    agencia_id      BIGINT REFERENCES agencias(id),
+    activo          BOOLEAN NOT NULL DEFAULT TRUE,
+    fecha_registro  TIMESTAMP NOT NULL DEFAULT now(),
+
+    CONSTRAINT chk_usuarios_rol CHECK (
+        rol IN ('cliente', 'counter', 'motorizado', 'encargado_logistica', 'administrador')
+    ),
+    CONSTRAINT chk_usuarios_agencia_requerida CHECK (
+        (rol IN ('cliente', 'administrador') AND agencia_id IS NULL)
+        OR
+        (rol IN ('counter', 'motorizado', 'encargado_logistica') AND agencia_id IS NOT NULL)
+    )
+);
+
+CREATE INDEX idx_usuarios_correo ON usuarios(correo);
+CREATE INDEX idx_usuarios_agencia ON usuarios(agencia_id);
+
+CREATE TABLE camiones (
+    id                  BIGSERIAL PRIMARY KEY,
+    placa               VARCHAR(15) NOT NULL UNIQUE,
+    peso_maximo_kg      NUMERIC(10,2) NOT NULL,
+    volumen_maximo_m3   NUMERIC(10,2) NOT NULL,
+    agencia_base_id     BIGINT NOT NULL REFERENCES agencias(id),
+    agencia_actual_id   BIGINT NOT NULL REFERENCES agencias(id),
+    estado              VARCHAR(30) NOT NULL DEFAULT 'disponible',
+    activo              BOOLEAN NOT NULL DEFAULT TRUE,
+
+    CONSTRAINT chk_camiones_estado CHECK (
+        estado IN ('disponible', 'en_viaje', 'en_mantenimiento')
+    )
+);
+
+CREATE INDEX idx_camiones_agencia_actual ON camiones(agencia_actual_id, estado);
+
+
+CREATE TABLE viajes (
+    id                      BIGSERIAL PRIMARY KEY,
+    camion_id               BIGINT NOT NULL REFERENCES camiones(id),
+    agencia_origen_id       BIGINT NOT NULL REFERENCES agencias(id),
+    agencia_destino_id      BIGINT NOT NULL REFERENCES agencias(id),
+    estado                  VARCHAR(30) NOT NULL DEFAULT 'programado',
+    fecha_salida            TIMESTAMP,
+    fecha_llegada           TIMESTAMP,
+    encargado_salida_id     BIGINT REFERENCES usuarios(id),
+    encargado_llegada_id    BIGINT REFERENCES usuarios(id),
+    fecha_creacion          TIMESTAMP NOT NULL DEFAULT now(),
+
+    CONSTRAINT chk_viajes_estado CHECK (
+        estado IN ('programado', 'en_ruta', 'llegado', 'finalizado')
+    ),
+    CONSTRAINT chk_viajes_origen_destino_distintos CHECK (
+        agencia_origen_id <> agencia_destino_id
+    )
+);
+
+CREATE INDEX idx_viajes_destino_estado ON viajes(agencia_destino_id, estado);
+CREATE INDEX idx_viajes_origen_estado ON viajes(agencia_origen_id, estado);
+CREATE INDEX idx_viajes_camion ON viajes(camion_id);
+
+CREATE TABLE tarifas (
+    id                      BIGSERIAL PRIMARY KEY,
+    agencia_origen_id       BIGINT NOT NULL REFERENCES agencias(id),
+    agencia_destino_id      BIGINT NOT NULL REFERENCES agencias(id),
+    rango_peso_min_kg       NUMERIC(10,2) NOT NULL,
+    rango_peso_max_kg       NUMERIC(10,2) NOT NULL,
+    precio_base             NUMERIC(10,2) NOT NULL,
+    recargo_domicilio       NUMERIC(10,2) NOT NULL DEFAULT 0,
+    activo                  BOOLEAN NOT NULL DEFAULT TRUE,
+
+    CONSTRAINT chk_tarifas_rango_valido CHECK (rango_peso_max_kg > rango_peso_min_kg)
+);
+
+CREATE INDEX idx_tarifas_ruta ON tarifas(agencia_origen_id, agencia_destino_id, activo);
+
+CREATE TABLE envios (
+    id                      BIGSERIAL PRIMARY KEY,
+    codigo_envio            VARCHAR(20) NOT NULL UNIQUE,
+    cliente_id              BIGINT NOT NULL REFERENCES usuarios(id),
+    counter_recepcion_id    BIGINT NOT NULL REFERENCES usuarios(id),
+    modalidad               VARCHAR(20) NOT NULL,
+    descripcion_paquete     TEXT,
+    peso_kg                 NUMERIC(10,2) NOT NULL,
+    alto_cm                 NUMERIC(10,2),
+    ancho_cm                NUMERIC(10,2),
+    largo_cm                NUMERIC(10,2),
+    direccion_recojo        VARCHAR(255),
+    direccion_entrega       VARCHAR(255),
+    agencia_origen_id       BIGINT NOT NULL REFERENCES agencias(id),
+    agencia_destino_id      BIGINT NOT NULL REFERENCES agencias(id),
+    costo_envio             NUMERIC(10,2) NOT NULL,
+    estado                  VARCHAR(30) NOT NULL DEFAULT 'REGISTRADO',
+    viaje_id                BIGINT REFERENCES viajes(id),
+    motorizado_id           BIGINT REFERENCES usuarios(id)
+    fecha_registro          TIMESTAMP NOT NULL DEFAULT now(),
+    fecha_entrega           TIMESTAMP,
+
+    CONSTRAINT chk_envios_modalidad CHECK (modalidad IN ('agencia', 'domicilio')),
+    CONSTRAINT chk_envios_estado CHECK (
+        estado IN (
+            'registrado',
+            'asignado_a_viaje',
+            'en_ruta',
+            'llego_a_agencia_destino',
+            'listo_para_recojo',
+            'en_reparto',
+            'entregado'
+        )
+    ),
+    CONSTRAINT chk_envios_direccion_recojo CHECK (
+        (modalidad = 'domicilio' AND direccion_recojo IS NOT NULL)
+        OR modalidad = 'agencia'
+    )
+);
+
+CREATE INDEX idx_envios_codigo ON envios(codigo_envio);
+CREATE INDEX idx_envios_origen_estado ON envios(agencia_origen_id, estado);
+CREATE INDEX idx_envios_destino_estado ON envios(agencia_destino_id, estado);
+CREATE INDEX idx_envios_cliente ON envios(cliente_id);
+CREATE INDEX idx_envios_viaje ON envios(viaje_id);
+
+CREATE TABLE historial_estados_envio (
+    id              BIGSERIAL PRIMARY KEY,
+    envio_id        BIGINT NOT NULL REFERENCES envios(id),
+    estado          VARCHAR(30) NOT NULL,
+    fecha           TIMESTAMP NOT NULL DEFAULT now(),
+    usuario_id      BIGINT NOT NULL REFERENCES usuarios(id),
+    comentario      VARCHAR(255)
+);
+
+CREATE INDEX idx_historial_envio ON historial_estados_envio(envio_id, fecha);
