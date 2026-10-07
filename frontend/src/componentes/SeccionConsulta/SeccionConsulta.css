@@ -1,0 +1,108 @@
+.seccion-consulta {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  overflow: hidden;
+}
+
+.seccion-consulta picture {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.seccion-consulta picture img {
+  display: block;
+  width: 100%;
+  height: 100vh;
+  object-fit: cover;
+}
+
+.contenedor-consulta {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 88%;
+  max-width: 1000px;
+  min-height: 100vh;
+  margin: 0 auto;
+  padding: 2rem 0;
+}
+
+.seccion-consulta h1 {
+  max-width: 960px;
+  margin: 0 0 1.5rem;
+  color: var(--color-blanco);
+  font-size: clamp(1.75rem, 4vw, 2.75rem);
+  font-weight: 700;
+  font-style: italic;
+  line-height: 1.2;
+  text-align: center;
+}
+
+.Barra-consulta-busqueda {
+  width: min(100%, 900px);
+}
+
+.contenedor-tarjetas-consulta {
+  width: min(100%, 900px);
+  margin-top: 2.5rem;
+  padding: 1rem;
+  border: 1px solid var(--color-gris);
+  border-radius: 40px;
+  background: var(--color-gris-translucido);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.tarjetas-consulta {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: center;
+  gap: 1rem;
+}
+
+@media (max-width: 900px) {
+  .seccion-consulta {
+    min-height: clamp(360px, 70vw, 500px);
+  }
+
+  .seccion-consulta picture img {
+    height: 100%;
+    aspect-ratio: auto;
+  }
+
+  .contenedor-consulta {
+    justify-content: center;
+    min-height: clamp(360px, 70vw, 500px);
+    width: 90%;
+    padding: 1.5rem 0;
+  }
+
+  .Barra-consulta-busqueda,
+  .contenedor-tarjetas-consulta {
+    width: min(100%, 640px);
+  }
+
+  .contenedor-tarjetas-consulta {
+    display: none;
+  }
+}
+
+@media (max-width: 560px) {
+  .contenedor-consulta {
+    width: 94%;
+    padding: 0.75rem 0 1.5rem;
+  }
+
+  .seccion-consulta h1 {
+    margin-bottom: 0.75rem;
+    font-size: 1.3rem;
+  }
+
+  .Barra-consulta-busqueda {
+    width: 100%;
+  }
+}

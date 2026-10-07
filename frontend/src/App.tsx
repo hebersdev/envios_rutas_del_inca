@@ -1,8 +1,12 @@
+import BarraNavegacion from "./componentes/BarraNavegacion/BarraNavegacion";
+import Inicio from "./paginas/Inicio";
+
 function App() {
   return (
-    <div>
-      <h1>Rutas del Inca</h1>
-    </div>
+    <>
+      <BarraNavegacion />
+      <Inicio />
+    </>
   );
 }
 

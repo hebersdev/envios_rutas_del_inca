@@ -1,0 +1,70 @@
+.seccion-eleccion {
+  padding: 3rem 0;
+  background-color: var(--color-blanco);
+  color: var(--color-texto-principal);
+}
+
+.seccion-eleccion h1 {
+  margin: 0 0 1.5rem;
+  color: var(--color-naranja);
+  font-size: clamp(1.75rem, 4vw, 2.5rem);
+  font-weight: 700;
+  line-height: 1.2;
+  text-align: center;
+}
+
+.contenedor-eleccion {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 2rem;
+  width: 80%;
+  margin: 0 auto;
+}
+
+.elemento-eleccion {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  width: 100%;
+  max-width: 220px;
+  justify-self: center;
+  text-align: center;
+}
+
+.imagen-eleccion {
+  width: 100%;
+  max-width: 150px;
+  padding: 15px;
+  border-radius: 50%;
+  background-color: var(--color-naranja);
+  object-fit: contain;
+  aspect-ratio: 1;
+  flex-shrink: 0;
+}
+
+.descripcion-eleccion {
+  margin: 0;
+  color: var(--color-texto-principal);
+  font-size: 1.4rem;
+  font-weight: 600;
+  line-height: 1.35;
+}
+
+@media (max-width: 900px) {
+  .contenedor-eleccion {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.5rem 1rem;
+    width: 90%;
+  }
+
+  .elemento-eleccion {
+    max-width: 220px;
+  }
+}
+
+@media (max-width: 560px) {
+  .contenedor-eleccion {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
