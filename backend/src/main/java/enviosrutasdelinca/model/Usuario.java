@@ -9,6 +9,8 @@ public class Usuario {
     private String correo;
     private String clave;
     private String telefono;
+    private String dni;
+    private String ruc;
     private String rol;
     private Long agenciaId;
     private Boolean activo;
@@ -55,6 +57,22 @@ public class Usuario {
 
     public void setTelefono(String telefono) {
         this.telefono = telefono;
+    }
+
+    public String getDni() {
+        return dni;
+    }
+
+    public void setDni(String dni) {
+        this.dni = dni;
+    }
+
+    public String getRuc() {
+        return ruc;
+    }
+
+    public void setRuc(String ruc) {
+        this.ruc = ruc;
     }
 
     public String getRol() {

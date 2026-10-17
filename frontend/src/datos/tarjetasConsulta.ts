@@ -1,21 +1,21 @@
-import paquete from "../imagenes/paqueteRutasDelInca.png";
-import reclamo from "../imagenes/reclamoRutasDelInca.png";
-import agencia from "../imagenes/agenciaRutasDelInca.png";
+import ImagenPaquete from "../imagenes/ImagenPaqueteRutasDelInca.png";
+import ImagenReclamo from "../imagenes/ImagenReclamoRutasDelInca.png";
+import ImagenAgencia from "../imagenes/ImagenAgenciaRutasDelInca.png";
 
 export const tarjetasConsulta = [
     {
         titulo: "Cotiza tu envío",
         descripcion: "Calcula el costo de tu paquete en segundos",
-        imagen: paquete
+        imagen: ImagenPaquete
     },
     {
         titulo: "Registrar reclamo",
         descripcion: "Registra tu reclamo",
-        imagen: reclamo
+        imagen: ImagenReclamo
     },
     {
         titulo: "Ubícanos",
         descripcion: "Conoce nuestras agencias",
-        imagen: agencia
+        imagen: ImagenAgencia
     }
 ];

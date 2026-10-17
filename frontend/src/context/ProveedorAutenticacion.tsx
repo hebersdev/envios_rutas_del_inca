@@ -2,16 +2,13 @@ import { useState, type ReactNode } from "react";
 import { ContextoAutenticacion, type Usuario } from "./ContextoAutenticacion";
 
 export function ProveedorAutenticacion({ children }: { children: ReactNode }) {
-  const [token, setToken] = useState<string | null>(null);
   const [usuario, setUsuario] = useState<Usuario | null>(null);
 
-  function iniciarSesion(nuevoToken: string, nuevoUsuario: Usuario) {
-    setToken(nuevoToken);
+  function iniciarSesion(nuevoUsuario: Usuario) {
     setUsuario(nuevoUsuario);
   }
 
   function cerrarSesion() {
-    setToken(null);
     setUsuario(null);
   }
 
@@ -19,7 +16,6 @@ export function ProveedorAutenticacion({ children }: { children: ReactNode }) {
     <ContextoAutenticacion.Provider
       value={{
         usuario,
-        token,
         iniciarSesion,
         cerrarSesion,
       }}

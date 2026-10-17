@@ -1,4 +1,4 @@
-import logoRutasDelInca from '../../imagenes/logoRutasDelInca.png';
+import LogoRutasDelInca from '../../imagenes/logoRutasDelInca.png';
 import ImagenLibroDeReclamaciones from '../../imagenes/ImagenLibroDeReclamaciones.png';
 import './PieDePagina.css';
 
@@ -7,7 +7,7 @@ function PieDePagina() {
         <footer className="pie-pagina">
             <div className="pie-pagina__contenido">
                 <a className="pie-pagina__marca" href="#inicio" aria-label="Rutas del Inca, inicio">
-                    <img src={logoRutasDelInca} alt="Rutas del Inca" />
+                    <img src={LogoRutasDelInca} alt="Rutas del Inca" />
                 </a>
 
                 <nav className="pie-pagina__columna" aria-label="Consultas">

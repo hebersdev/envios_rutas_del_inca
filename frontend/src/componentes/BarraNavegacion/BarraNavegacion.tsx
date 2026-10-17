@@ -6,11 +6,26 @@ import SearchIcon from "../iconos/SearchIcon";
 import HomeIcon from "../iconos/HomeIcon";
 import MoneyIcon from "../iconos/MoneyIcon";
 import StoreIcon from "../iconos/StoreIcon";
+import { useAutenticacion } from "../../context/UseAutenticacion";
+import { cerrarSesion as solicitarCierreSesion } from "../../servicios/autenticacion";
 
 function BarraNavegacion() {
   const [menuAbierto, setMenuAbierto] = useState(false);
+  const [errorSesion, setErrorSesion] = useState("");
+  const { usuario, cerrarSesion } = useAutenticacion();
 
   const cerrarMenu = () => setMenuAbierto(false);
+
+  async function salir() {
+    setErrorSesion("");
+
+    try {
+      await solicitarCierreSesion();
+      cerrarSesion();
+    } catch (error) {
+      setErrorSesion(error instanceof Error ? error.message : "No se pudo cerrar la sesión.");
+    }
+  }
 
   return (
     <header className="encabezado-navegacion">
@@ -39,13 +54,19 @@ function BarraNavegacion() {
           <Link to="/consulta" onClick={cerrarMenu}><SearchIcon />Rastrea</Link>
           <Link to="/cotizar" onClick={cerrarMenu}><MoneyIcon />Tarifas</Link>
           <Link to="/agencias" onClick={cerrarMenu}><StoreIcon />Agencias</Link>
+          <div className="barra-navegacion-auth">
+            {usuario ? (
+              <button className="barra-navegacion-boton" type="button" onClick={salir}>
+                Cerrar sesión
+              </button>
+            ) : (
+              <Link to="/auth" className="barra-navegacion-boton" onClick={cerrarMenu}>
+                Iniciar sesión
+              </Link>
+            )}
+            {errorSesion && <span role="alert">{errorSesion}</span>}
+          </div>
         </nav>
-
-        <div className="barra-navegacion-auth">
-          <Link to="/auth" className="barra-navegacion-boton">
-            Iniciar sesión
-          </Link>
-        </div>
       </div>
     </header>
   );

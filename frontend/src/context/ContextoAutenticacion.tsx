@@ -2,13 +2,13 @@ import { createContext } from "react";
 
 export interface Usuario {
   nombre: string;
-  rol: "CLIENTE" | "COUNTER" | "MOTORIZADO" | "ENCARGADO_LOGISTICA" | "ADMINISTRADOR";
+  correo: string;
+  rol: "cliente" | "counter" | "motorizado" | "encargado_logistica" | "administrador";
 }
 
 export interface ContextoAutenticacionType {
   usuario: Usuario | null;
-  token: string | null;
-  iniciarSesion: (token: string, usuario: Usuario) => void;
+  iniciarSesion: (usuario: Usuario) => void;
   cerrarSesion: () => void;
 }
 

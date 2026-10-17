@@ -33,12 +33,32 @@ public class UsuarioRepository {
         return cantidad != null && cantidad > 0;
     }
 
+        public boolean existePorDni(String dni) {
+                Integer cantidad = jdbcTemplate.queryForObject(
+                                "SELECT COUNT(*) FROM usuarios WHERE dni = ?",
+                                Integer.class,
+                                dni
+                );
+
+                return cantidad != null && cantidad > 0;
+        }
+
+        public boolean existePorRuc(String ruc) {
+                Integer cantidad = jdbcTemplate.queryForObject(
+                                "SELECT COUNT(*) FROM usuarios WHERE ruc = ?",
+                                Integer.class,
+                                ruc
+                );
+
+                return cantidad != null && cantidad > 0;
+        }
+
     public void guardar(Usuario usuario) {
 
         String sql = """
                 INSERT INTO usuarios
-                (nombre, correo, clave, telefono, rol, agencia_id, activo)
-                VALUES (?, ?, ?, ?, ?, ?, ?)
+                                (nombre, correo, clave, telefono, dni, ruc, rol, agencia_id, activo)
+                                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
                 """;
 
         jdbcTemplate.update(
@@ -47,6 +67,8 @@ public class UsuarioRepository {
                 usuario.getCorreo(),
                 usuario.getClave(),
                 usuario.getTelefono(),
+                usuario.getDni(),
+                usuario.getRuc(),
                 usuario.getRol(),
                 usuario.getAgenciaId(),
                 usuario.getActivo()
@@ -57,7 +79,7 @@ public class UsuarioRepository {
 
         String sql = """
                 SELECT id, nombre, correo, clave, telefono,
-                       rol, agencia_id, activo, fecha_registro
+                       dni, ruc, rol, agencia_id, activo, fecha_registro
                 FROM usuarios
                 WHERE correo = ?
                 """;
@@ -72,6 +94,8 @@ public class UsuarioRepository {
                     usuario.setCorreo(rs.getString("correo"));
                     usuario.setClave(rs.getString("clave"));
                     usuario.setTelefono(rs.getString("telefono"));
+                    usuario.setDni(rs.getString("dni"));
+                    usuario.setRuc(rs.getString("ruc"));
                     usuario.setRol(rs.getString("rol"));
 
                     Long agenciaId = rs.getObject(
