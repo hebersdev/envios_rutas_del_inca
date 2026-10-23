@@ -13,8 +13,7 @@ public class Agencia {
     public Agencia() {
     }
 
-    public Agencia(Long id, String nombre, Long ubicacionId,
-                   Boolean activo, LocalDateTime fechaCreacion) {
+    public Agencia(Long id, String nombre, Long ubicacionId, Boolean activo, LocalDateTime fechaCreacion) {
         this.id = id;
         this.nombre = nombre;
         this.ubicacionId = ubicacionId;
