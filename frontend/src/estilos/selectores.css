@@ -1,0 +1,75 @@
+select:not([multiple]) {
+  appearance: none;
+  -webkit-appearance: none;
+  background-image:
+    linear-gradient(45deg, transparent 50%, var(--color-naranja) 50%),
+    linear-gradient(135deg, var(--color-naranja) 50%, transparent 50%);
+  background-position:
+    calc(100% - 16px) 50%,
+    calc(100% - 11px) 50%;
+  background-repeat: no-repeat;
+  background-size: 5px 5px;
+  cursor: pointer;
+}
+
+select:focus-visible {
+  border-color: var(--color-naranja);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-naranja) 18%, transparent);
+}
+
+select:disabled {
+  cursor: not-allowed;
+}
+
+select option {
+  background-color: var(--color-blanco);
+  color: var(--color-texto-principal);
+}
+
+select option:checked {
+  background-color: color-mix(in srgb, var(--color-naranja) 16%, var(--color-blanco));
+  color: var(--color-texto-principal);
+}
+
+@supports (appearance: base-select) {
+  select:not([multiple]) {
+    appearance: base-select;
+    -webkit-appearance: base-select;
+    background-image: none;
+  }
+
+  select::picker(select) {
+    appearance: base-select;
+    margin-block: 6px;
+    padding: 5px;
+    border: 2px solid var(--borde-color-gris);
+    border-radius: 6px;
+    background: var(--color-blanco);
+    box-shadow: 0 8px 24px var(--color-sombra);
+  }
+
+  select::picker-icon {
+    color: var(--color-naranja);
+    transition: transform 140ms;
+  }
+
+  select:open::picker-icon {
+    transform: rotate(180deg);
+  }
+
+  select option {
+    min-height: 38px;
+    padding: 7px 9px;
+    border-radius: 4px;
+  }
+
+  select option:checked {
+    background: color-mix(in srgb, var(--color-naranja) 10%, var(--color-blanco));
+    color: color-mix(in srgb, var(--color-naranja) 78%, var(--color-texto-principal));
+    font-weight: 600;
+  }
+
+  select option::checkmark {
+    display: none;
+  }
+}

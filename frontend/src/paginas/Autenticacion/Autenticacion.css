@@ -132,7 +132,6 @@
   padding: 5px;
   border: 2px solid var(--borde-color-gris);
   border-radius: 4px;
-  outline: none;
   color: var(--color-texto-gris);
   background: var(--color-blanco);
   font: inherit;
@@ -144,6 +143,7 @@
 .autenticacion-selector-tipo-boton:hover,
 .autenticacion-selector-tipo-boton[aria-expanded="true"] {
   border-color: var(--color-naranja);
+  outline: none;
 }
 
 .autenticacion-selector-tipo {
@@ -185,7 +185,7 @@
   display: grid;
   gap: 3px;
   padding: 5px;
-  border: 1px solid var(--borde-color-gris);
+  border: 2px solid var(--borde-color-gris);
   border-radius: 6px;
   background: var(--color-blanco);
 }
@@ -227,7 +227,7 @@
 .autenticacion-alerta {
   margin: 2px 0;
   padding: 8px 10px;
-  border: 1px solid color-mix(in srgb, var(--color-naranja) 35%, var(--color-blanco));
+  border: 2px solid color-mix(in srgb, var(--color-naranja) 35%, var(--color-blanco));
   border-radius: 4px;
   background: color-mix(in srgb, var(--color-naranja) 10%, var(--color-blanco));
   font-size: 0.8rem;
@@ -274,7 +274,7 @@
   text-decoration: none;
 }
 
-@media (min-width: 761px) and (max-width: 1000px) {
+@media (min-width: 762px) and (max-width: 1000px) {
   .autenticacion {
     grid-template-columns: minmax(0, 1fr) minmax(320px, 38%);
   }

@@ -1,7 +1,7 @@
 import "../SeccionConsulta/SeccionConsulta.css"
 import FondoInicioConsulta from "../../imagenes/fondoInicioRutasDelInca.png";
 import TarjetaConsulta from "../TarjetaConsulta/TarjetaConsulta";
-import { tarjetasConsulta } from "../../datos/tarjetasConsulta";
+import { tarjetasConsulta } from "../../Datos/tarjetasConsulta";
 import BusquedaEnvio from "../BusquedaEnvio/BusquedaEnvio";
 
 function SeccionConsulta() {

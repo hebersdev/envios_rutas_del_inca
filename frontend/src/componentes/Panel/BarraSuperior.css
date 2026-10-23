@@ -1,0 +1,56 @@
+.panel-barra {
+  display: flex;
+  min-height: 78px;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 12px 32px;
+  border-bottom: 2px solid var(--borde-color-gris);
+  background: var(--color-blanco);
+}
+
+.panel-barra-menu {
+  display: none;
+  border: 0;
+  background: transparent;
+  color: var(--color-texto-principal);
+  cursor: pointer;
+  font: inherit;
+  font-size: 1.4rem;
+}
+
+.panel-barra-identidad {
+  display: flex;
+  align-items: flex-end;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.panel-barra-nombre {
+  color: var(--color-texto-principal);
+  font-weight: 700;
+}
+
+.panel-barra-rol,
+.panel-barra-sede {
+  color: var(--color-naranja);
+  font-size: 0.84rem;
+  font-weight: bold;
+}
+
+@media (max-width: 800px) {
+  .panel-barra {
+    justify-content: space-between;
+    padding: 12px 20px;
+  }
+
+  .panel-barra-menu {
+    display: inline-flex;
+  }
+}
+
+@media (max-width: 480px) {
+  .panel-barra {
+    min-height: 68px;
+    padding: 10px 14px;
+  }
+}

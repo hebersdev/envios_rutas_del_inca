@@ -1,0 +1,86 @@
+.panel-menu {
+  position: fixed;
+  z-index: 10;
+  inset: 0 auto 0 0;
+  display: flex;
+  width: 240px;
+  flex-direction: column;
+  padding: 22px 16px;
+  border-right: 2px solid var(--borde-color-gris);
+  background: var(--color-blanco);
+}
+
+.panel-menu-marca {
+  display: flex;
+  min-height: 54px;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 32px;
+}
+
+.panel-menu-marca img {
+  display: block;
+  max-width: 150px;
+  max-height: 150px;
+  object-fit: contain;
+}
+
+.panel-menu-navegacion {
+  display: grid;
+  gap: 8px;
+}
+
+.panel-menu-enlace {
+  padding: 12px 14px;
+  border-radius: 8px;
+  color: var(--color-texto-principal);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.panel-menu-enlace--activo {
+  background: color-mix(in srgb, var(--color-naranja) 12%, var(--color-blanco));
+  color: var(--color-texto-principal);
+}
+
+.panel-menu-pie {
+  margin-top: auto;
+}
+
+.panel-menu-pie button {
+  width: 100%;
+  padding: 12px 14px;
+  border: 2px solid var(--borde-color-gris);
+  border-radius: 8px;
+  background: var(--color-blanco);
+  color: var(--color-texto-principal);
+  cursor: pointer;
+  font: inherit;
+  font-weight: 600;
+}
+
+.panel-menu-pie button:hover:not(:disabled) {
+  border-color: var(--color-naranja);
+}
+
+.panel-menu-pie button:disabled {
+  cursor: wait;
+  opacity: 0.65;
+}
+
+.panel-menu-error {
+  margin-bottom: 10px;
+  color: var(--color-advertencia);
+  font-size: 0.8rem;
+}
+
+@media (max-width: 800px) {
+  .panel-menu {
+    transform: translateX(-100%);
+    transition: transform 180ms ease;
+  }
+
+  .panel-menu--abierto {
+    transform: translateX(0);
+  }
+}

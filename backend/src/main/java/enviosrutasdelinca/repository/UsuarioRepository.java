@@ -1,4 +1,6 @@
 package enviosrutasdelinca.repository;
+
+import java.sql.Timestamp;
 import java.util.List;
 import java.util.Optional;
 
@@ -6,6 +8,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import enviosrutasdelinca.model.Usuario;
+import enviosrutasdelinca.dto.UsuarioAdministracionResponse;
 
 @Repository
 public class UsuarioRepository {
@@ -17,108 +20,155 @@ public class UsuarioRepository {
     }
 
     public boolean existePorCorreo(String correo) {
-
-        String sql = """
-                SELECT COUNT(*)
-                FROM usuarios
-                WHERE correo = ?
-                """;
-
-        Integer cantidad = jdbcTemplate.queryForObject(
-                sql,
-                Integer.class,
+        return existe(
+                "SELECT COUNT(*) FROM usuarios WHERE correo = ?",
                 correo
         );
-
-        return cantidad != null && cantidad > 0;
     }
 
-        public boolean existePorDni(String dni) {
-                Integer cantidad = jdbcTemplate.queryForObject(
-                                "SELECT COUNT(*) FROM usuarios WHERE dni = ?",
-                                Integer.class,
-                                dni
-                );
+    public boolean existePorDni(String dni) {
+        return existe(
+                "SELECT COUNT(*) FROM usuarios WHERE dni = ?",
+                dni
+        );
+    }
 
-                return cantidad != null && cantidad > 0;
-        }
-
-        public boolean existePorRuc(String ruc) {
-                Integer cantidad = jdbcTemplate.queryForObject(
-                                "SELECT COUNT(*) FROM usuarios WHERE ruc = ?",
-                                Integer.class,
-                                ruc
-                );
-
-                return cantidad != null && cantidad > 0;
-        }
+    public boolean existePorRuc(String ruc) {
+        return existe(
+                "SELECT COUNT(*) FROM usuarios WHERE ruc = ?",
+                ruc
+        );
+    }
 
     public void guardar(Usuario usuario) {
-
         String sql = """
-                INSERT INTO usuarios
-                                (nombre, correo, clave, telefono, dni, ruc, rol, agencia_id, activo)
-                                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
-                """;
+            INSERT INTO usuarios
+                (nombre, correo, clave, telefono, dni, ruc,
+                 rol, agencia_id, activo)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+            """;
 
         jdbcTemplate.update(
                 sql,
-                usuario.getNombre(),
-                usuario.getCorreo(),
-                usuario.getClave(),
-                usuario.getTelefono(),
-                usuario.getDni(),
-                usuario.getRuc(),
-                usuario.getRol(),
-                usuario.getAgenciaId(),
-                usuario.getActivo()
+                usuario.nombre(),
+                usuario.correo(),
+                usuario.clave(),
+                usuario.telefono(),
+                usuario.dni(),
+                usuario.ruc(),
+                usuario.rol(),
+                usuario.agenciaId(),
+                usuario.activo()
         );
     }
 
-        public Optional<Usuario> buscarPorCorreo(String correo) {
-
+    public List<UsuarioAdministracionResponse> listarPersonalActivo() {
         String sql = """
-                SELECT id, nombre, correo, clave, telefono,
-                       dni, ruc, rol, agencia_id, activo, fecha_registro
-                FROM usuarios
-                WHERE correo = ?
-                """;
+            SELECT u.id, u.nombre, u.correo, u.rol, u.agencia_id,
+                   COALESCE(a.nombre, 'Sin sede') AS sede, u.activo
+            FROM usuarios u
+            LEFT JOIN agencias a ON a.id = u.agencia_id
+            WHERE u.activo AND u.rol <> 'CLIENTE'
+            ORDER BY LOWER(u.nombre), u.id
+            """;
 
-        List<Usuario> usuarios = jdbcTemplate.query(
+        return jdbcTemplate.query(sql, this::mapearUsuarioAdministracion);
+    }
+
+    public Optional<UsuarioAdministracionResponse> buscarPersonalActivo(long id) {
+        String sql = """
+            SELECT u.id, u.nombre, u.correo, u.rol, u.agencia_id,
+                   COALESCE(a.nombre, 'Sin sede') AS sede, u.activo
+            FROM usuarios u
+            LEFT JOIN agencias a ON a.id = u.agencia_id
+            WHERE u.id = ? AND u.activo AND u.rol <> 'CLIENTE'
+            """;
+
+        return jdbcTemplate.query(sql, this::mapearUsuarioAdministracion, id)
+                .stream()
+                .findFirst();
+    }
+
+    public long crearPersonal(String nombre, String correo, String clave, String rol, Long agenciaId) {
+        return jdbcTemplate.queryForObject("""
+                INSERT INTO usuarios (nombre, correo, clave, rol, agencia_id, activo)
+                VALUES (?, ?, ?, ?, ?, TRUE)
+                RETURNING id
+                """, Long.class, nombre, correo, clave, rol, agenciaId);
+    }
+
+    public int actualizarRol(long id, String rol, Long agenciaId) {
+        return jdbcTemplate.update(
+                "UPDATE usuarios SET rol = ?, agencia_id = ? WHERE id = ? AND activo = TRUE",
+                rol,
+                agenciaId,
+                id
+        );
+    }
+
+    public int desactivar(long id) {
+        return jdbcTemplate.update(
+                "UPDATE usuarios SET activo = FALSE WHERE id = ? AND activo = TRUE",
+                id
+        );
+    }
+
+    public long contarAdministradoresActivos() {
+        Long cantidad = jdbcTemplate.queryForObject(
+                "SELECT COUNT(*) FROM usuarios WHERE activo = TRUE AND rol = 'ADMINISTRADOR'",
+                Long.class
+        );
+        return cantidad == null ? 0 : cantidad;
+    }
+
+    private UsuarioAdministracionResponse mapearUsuarioAdministracion(
+            java.sql.ResultSet rs,
+            int numeroFila) throws java.sql.SQLException {
+        return new UsuarioAdministracionResponse(
+                rs.getLong("id"),
+                rs.getString("nombre"),
+                rs.getString("correo"),
+                rs.getObject("agencia_id", Long.class),
+                rs.getString("sede"),
+                rs.getString("rol"),
+                rs.getBoolean("activo")
+        );
+    }
+
+    public Optional<Usuario> buscarPorCorreo(String correo) {
+        String sql = """
+            SELECT id, nombre, correo, clave, telefono,
+                   dni, ruc, rol, agencia_id, activo, fecha_registro
+            FROM usuarios
+            WHERE correo = ?
+            """;
+
+        return jdbcTemplate.query(sql, (rs, numeroFila) -> {
+            Timestamp fecha = rs.getTimestamp("fecha_registro");
+
+            return new Usuario(
+                    rs.getLong("id"),
+                    rs.getString("nombre"),
+                    rs.getString("correo"),
+                    rs.getString("clave"),
+                    rs.getString("telefono"),
+                    rs.getString("dni"),
+                    rs.getString("ruc"),
+                    rs.getString("rol"),
+                    rs.getObject("agencia_id", Long.class),
+                    rs.getBoolean("activo"),
+                    fecha != null ? fecha.toLocalDateTime() : null
+            );
+        }, correo).stream().findFirst();
+    }
+
+    private boolean existe(String sql, String valor) {
+        Integer cantidad = jdbcTemplate.queryForObject(
                 sql,
-                (rs, rowNum) -> {
-                    Usuario usuario = new Usuario();
-
-                    usuario.setId(rs.getLong("id"));
-                    usuario.setNombre(rs.getString("nombre"));
-                    usuario.setCorreo(rs.getString("correo"));
-                    usuario.setClave(rs.getString("clave"));
-                    usuario.setTelefono(rs.getString("telefono"));
-                    usuario.setDni(rs.getString("dni"));
-                    usuario.setRuc(rs.getString("ruc"));
-                    usuario.setRol(rs.getString("rol"));
-
-                    Long agenciaId = rs.getObject(
-                            "agencia_id", Long.class
-                    );
-                    usuario.setAgenciaId(agenciaId);
-
-                    usuario.setActivo(rs.getBoolean("activo"));
-
-                    java.sql.Timestamp fecha =
-                            rs.getTimestamp("fecha_registro");
-
-                    if (fecha != null) {
-                        usuario.setFechaRegistro(
-                                fecha.toLocalDateTime()
-                        );
-                    }
-
-                    return usuario;
-                },
-                correo
+                Integer.class,
+                valor
         );
 
-        return usuarios.stream().findFirst();
+        return cantidad != null && cantidad > 0;
     }
 }
