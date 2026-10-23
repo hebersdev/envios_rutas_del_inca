@@ -1,6 +1,6 @@
 .pie-pagina {
 	--pie-rojo: var(--color-naranja);
-	--pie-blanco: #fff;
+	--pie-blanco: var(--color-blanco);
 	--pie-linea: rgba(255, 255, 255, 0.38);
 	background-color: var(--pie-rojo);
 	color: var(--pie-blanco);

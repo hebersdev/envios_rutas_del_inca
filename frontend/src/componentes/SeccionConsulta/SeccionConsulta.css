@@ -46,11 +46,25 @@
   width: min(100%, 900px);
 }
 
+.seccion-consulta-cotizar {
+  margin-top: 1rem;
+  padding: 0.8rem 1.4rem;
+  border: 2px solid var(--color-naranja);
+  border-radius: 8px;
+  background: var(--color-naranja);
+  color: var(--color-blanco);
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.seccion-consulta-cotizar:hover {
+  filter: brightness(0.95);
+}
+
 .contenedor-tarjetas-consulta {
   width: min(100%, 900px);
   margin-top: 2.5rem;
   padding: 1rem;
-  border: 1px solid var(--color-gris);
   border-radius: 40px;
   background: var(--color-gris-translucido);
   backdrop-filter: blur(10px);

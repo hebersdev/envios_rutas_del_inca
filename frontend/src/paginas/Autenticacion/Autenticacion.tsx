@@ -2,8 +2,8 @@ import { useState, type FormEvent, type KeyboardEvent } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import ImagenInicioSesion from "../../imagenes/ImagenInicioSesion.png";
 import LogoRutasDelInca from "../../imagenes/LogoRutasDelIncaColor.png";
-import { useAutenticacion } from "../../context/UseAutenticacion";
-import { iniciarSesion, registrarUsuario } from "../../servicios/autenticacion";
+import { useAutenticacion } from "../../Context/UseAutenticacion";
+import { iniciarSesion, registrarUsuario } from "../../Servicios/Autenticacion";
 import "./Autenticacion.css";
 
 type ModoAutenticacion = "iniciar" | "registrar";
@@ -111,7 +111,7 @@ function Autenticacion() {
       } else {
         const usuario = await iniciarSesion(correo.trim(), clave);
         guardarSesion(usuario);
-        navegar("/inicio");
+        navegar(usuario.rol === "CLIENTE" ? "/inicio" : "/panel");
       }
     } catch (solicitudError) {
       setError(solicitudError instanceof Error ? solicitudError.message : "Ocurrió un error. Inténtalo nuevamente.");

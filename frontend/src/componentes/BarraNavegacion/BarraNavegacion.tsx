@@ -2,12 +2,12 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import "../BarraNavegacion/BarraNavegacion.css";
 import Logo from "../../imagenes/logoRutasDelInca.png";
-import SearchIcon from "../iconos/SearchIcon";
-import HomeIcon from "../iconos/HomeIcon";
-import MoneyIcon from "../iconos/MoneyIcon";
-import StoreIcon from "../iconos/StoreIcon";
-import { useAutenticacion } from "../../context/UseAutenticacion";
-import { cerrarSesion as solicitarCierreSesion } from "../../servicios/autenticacion";
+import SearchIcon from "../Iconos/SearchIcon";
+import HomeIcon from "../Iconos/HomeIcon";
+import MoneyIcon from "../Iconos/MoneyIcon";
+import StoreIcon from "../Iconos/StoreIcon";
+import { useAutenticacion } from "../../Context/UseAutenticacion";
+import { cerrarSesion as solicitarCierreSesion } from "../../Servicios/Autenticacion";
 
 function BarraNavegacion() {
   const [menuAbierto, setMenuAbierto] = useState(false);

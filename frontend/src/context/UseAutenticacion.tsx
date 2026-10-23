@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { ContextoAutenticacion } from "../context/ContextoAutenticacion.tsx";
+import { ContextoAutenticacion } from "./ContextoAutenticacion.tsx";
 
 export function useAutenticacion() {
   const contexto = useContext(ContextoAutenticacion);

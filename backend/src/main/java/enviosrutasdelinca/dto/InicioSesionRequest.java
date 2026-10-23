@@ -1,7 +1,6 @@
-package enviosrutasdelinca.controller;
+package enviosrutasdelinca.dto;
 
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.*;
 
 public record InicioSesionRequest(
         @NotBlank(message = "El correo es obligatorio.")

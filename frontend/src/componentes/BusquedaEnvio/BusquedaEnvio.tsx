@@ -1,7 +1,7 @@
 import { useState } from "react";
 import type { FormEvent } from "react";
 import "../BusquedaEnvio/BusquedaEnvio.css";
-import SearchIcon from "../iconos/SearchIcon";
+import SearchIcon from "../Iconos/SearchIcon";
 
 function BusquedaEnvio() {
     const [codigoSeguimiento, setCodigoSeguimiento] = useState("");
@@ -15,7 +15,6 @@ function BusquedaEnvio() {
             return;
         }
 
-        console.log("Código de seguimiento:", codigo);
     };
 
     return (

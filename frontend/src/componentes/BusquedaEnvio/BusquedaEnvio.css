@@ -3,7 +3,7 @@
   gap: 1.25rem;
   width: 100%;
   padding: 1.5rem;
-  border: 1px solid var(--color-gris);
+  border: 2px solid var(--color-gris);
   border-radius: 40px;
   background: var(--color-gris-translucido);
   box-shadow: 0 12px 28px var(--color-sombra);
@@ -34,12 +34,13 @@
   flex: 1;
   padding: 1rem;
   border: none;
-  outline: none;
   background: transparent;
   color: var(--color-texto-principal);
   font-size: 1rem;
 }
-
+.busqueda-envio input:focus {
+  outline: none;
+}
 .busqueda-envio button[type="submit"] {
   display: flex;
   align-items: center;
@@ -78,7 +79,7 @@
   justify-content: center;
   width: 1.2rem;
   height: 1.2rem;
-  border: 1px solid rgba(255, 255, 255, 0.45);
+  border: 2px solid rgba(255, 255, 255, 0.45);
   border-radius: 50%;
   font-size: 0.8rem;
 }

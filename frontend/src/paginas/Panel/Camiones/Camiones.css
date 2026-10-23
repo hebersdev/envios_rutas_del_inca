@@ -1,0 +1,214 @@
+.camiones-pagina {
+  display: grid;
+  gap: 22px;
+}
+
+.camiones-encabezado {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.camiones-eyebrow {
+  color: var(--color-naranja);
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.camiones-encabezado h1 {
+  color: var(--color-texto-principal);
+  font-size: clamp(1.7rem, 3vw, 2.2rem);
+}
+
+.camiones-encabezado > div > p:last-child {
+  color: var(--color-texto-gris);
+}
+
+.camiones-boton-principal {
+  min-height: 42px;
+  padding: 9px 14px;
+  border: 2px solid var(--color-naranja);
+  border-radius: 8px;
+  background: var(--color-naranja);
+  color: var(--color-blanco);
+  cursor: pointer;
+  font: inherit;
+  font-weight: 700;
+}
+
+.camiones-filtros {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  padding: 18px;
+  border: 2px solid var(--borde-color-gris);
+  border-radius: 12px;
+  background: var(--color-blanco);
+}
+
+.camiones-filtros label {
+  display: grid;
+  min-width: min(100%, 200px);
+  gap: 6px;
+  color: var(--color-texto-principal);
+  font-size: 0.86rem;
+  font-weight: 600;
+}
+
+.camiones-filtros select {
+  min-height: 42px;
+  padding: 8px 12px;
+  border: 2px solid var(--borde-color-gris);
+  border-radius: 8px;
+  background: var(--color-blanco);
+  color: var(--color-texto-principal);
+  font: inherit;
+  font-weight: 400;
+}
+
+.camiones-tabla-contenedor {
+  overflow-x: auto;
+  border: 2px solid var(--borde-color-gris);
+  border-radius: 12px;
+  background: var(--color-blanco);
+}
+
+.camiones-tabla {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.camiones-tabla th,
+.camiones-tabla td {
+  padding: 14px 16px;
+  border-bottom: 2px solid var(--borde-color-gris);
+  color: var(--color-texto-principal);
+  vertical-align: middle;
+}
+
+.camiones-tabla th {
+  background: var(--color-gris-claro);
+  color: var(--color-texto-gris);
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.camiones-tabla tbody tr:last-child td {
+  border-bottom: 0;
+}
+
+.camiones-baja {
+  display: block;
+  color: var(--color-advertencia);
+}
+
+.camiones-estado-etiqueta {
+  display: inline-flex;
+  padding: 4px 9px;
+  border-radius: 999px;
+  background: var(--color-blanco);
+  color: var(--color-texto-gris);
+  font-size: 0.8rem;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.camiones-estado-etiqueta--disponible {
+  background: var(--color-etiqueta);
+  color: #22CF81;
+}
+
+.camiones-estado-etiqueta--en_viaje {
+  background: var(--color-etiqueta);
+  color: #039AB2;
+}
+
+.camiones-estado-etiqueta--en_mantenimiento {
+  background: var(--color-etiqueta);
+  color: #B42318;
+}
+
+.camiones-acciones {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+}
+
+.camiones-acciones button,
+.camiones-error button {
+  padding: 7px 10px;
+  border: 2px solid var(--borde-color-gris);
+  border-radius: 7px;
+  background: var(--color-blanco);
+  color: var(--color-texto-principal);
+  cursor: pointer;
+  font: inherit;
+  font-size: 0.82rem;
+  font-weight: 600;
+}
+
+.camiones-acciones button:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+
+.camiones-accion-bloqueada {
+  align-self: center;
+  color: #8a4b00;
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+.camiones-estado {
+  padding: 34px 18px;
+  color: var(--color-texto-gris);
+  text-align: center;
+}
+
+.camiones-error {
+  padding: 12px 14px;
+  border-radius: 9px;
+}
+
+
+
+.camiones-error {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  background: var(--color-blanco);
+  color: var(--color-advertencia);
+}
+
+@media (max-width: 1000px) {
+  .camiones-tabla {
+    min-width: 950px;
+  }
+}
+
+@media (max-width: 560px) {
+  .camiones-encabezado {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .camiones-filtros {
+    flex-direction: column;
+  }
+
+  .camiones-filtros label {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .camiones-error {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}

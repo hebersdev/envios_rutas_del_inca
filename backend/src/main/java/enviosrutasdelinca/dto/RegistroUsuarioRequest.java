@@ -1,9 +1,6 @@
-package enviosrutasdelinca.controller;
+package enviosrutasdelinca.dto;
 
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Pattern;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.*;
 
 public record RegistroUsuarioRequest(
         @NotBlank(message = "El nombre o razón social es obligatorio.")

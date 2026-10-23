@@ -10,7 +10,6 @@
   margin: 0 auto;
   overflow: hidden;
   border-radius: 40px;
-  box-sizing: border-box;
 }
 
 .contenedor-experiencia h2 {
@@ -49,13 +48,11 @@
   max-width: 950px;
   padding: 28px;
   transform: translate(-50%, -50%);
-  border: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: 20px;
   background: var(--color-gris-translucido);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   color: var(--color-blanco);
-  box-sizing: border-box;
 }
 
 .estadisticas-experiencia {
@@ -71,7 +68,7 @@
   align-items: center;
   min-width: 0;
   padding: 0 25px;
-  border-right: 1px solid rgba(255, 255, 255, 0.4);
+  border-right: 2px solid var(--color-gris-claro);
 }
 
 .estadistica-experiencia:last-child {
