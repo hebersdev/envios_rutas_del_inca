@@ -14,7 +14,7 @@ import enviosrutasdelinca.dto.CamionResponse;
 public class CamionRepository {
 
     private static final String SELECT_CAMIONES = """
-            SELECT c.id, c.placa, c.peso_maximo_kg, c.volumen_maximo_m3,
+            SELECT c.id, c.placa, c.peso_maximo_kg, c.volumen_maximo_m,
                    c.agencia_base_id, ab.nombre AS agencia_base_nombre,
                    c.agencia_actual_id, aa.nombre AS agencia_actual_nombre,
                    c.estado, c.activo
@@ -51,6 +51,23 @@ public class CamionRepository {
                 .optional();
     }
 
+    public Optional<CamionResponse> bloquearPorId(long id) {
+        return jdbc.sql(SELECT_CAMIONES + " WHERE c.id = :id FOR UPDATE OF c")
+                .param("id", id).query(this::mapear).optional();
+    }
+
+    public boolean tieneViajeAbierto(long id) {
+        return jdbc.sql("""
+                SELECT EXISTS (SELECT 1 FROM viajes WHERE camion_id = :id
+                    AND estado IN ('PROGRAMADO', 'EN_RUTA'))
+                """).param("id", id).query(Boolean.class).single();
+    }
+
+    public void bloquearSede(long agenciaId) {
+        jdbc.sql("SELECT pg_advisory_xact_lock(:id)").param("id", agenciaId)
+                .query((rs, fila) -> true).single();
+    }
+
     public Optional<String> buscarEstado(long id) {
         return jdbc.sql("SELECT estado FROM camiones WHERE id = :id")
                 .param("id", id)
@@ -82,7 +99,7 @@ public class CamionRepository {
     public long crear(String placa, java.math.BigDecimal peso, java.math.BigDecimal volumen, long agenciaBaseId) {
         return jdbc.sql("""
                         INSERT INTO camiones (
-                            placa, peso_maximo_kg, volumen_maximo_m3,
+                            placa, peso_maximo_kg, volumen_maximo_m,
                             agencia_base_id, agencia_actual_id
                         )
                         VALUES (:placa, :peso, :volumen, :agenciaBaseId, :agenciaBaseId)
@@ -102,7 +119,7 @@ public class CamionRepository {
                         UPDATE camiones
                         SET placa = :placa,
                             peso_maximo_kg = :peso,
-                            volumen_maximo_m3 = :volumen,
+                            volumen_maximo_m = :volumen,
                             agencia_base_id = :agenciaBaseId
                         WHERE id = :id
                         """)
@@ -133,7 +150,7 @@ public class CamionRepository {
                 rs.getLong("id"),
                 rs.getString("placa"),
                 rs.getBigDecimal("peso_maximo_kg"),
-                rs.getBigDecimal("volumen_maximo_m3"),
+                rs.getBigDecimal("volumen_maximo_m"),
                 rs.getLong("agencia_base_id"),
                 rs.getString("agencia_base_nombre"),
                 rs.getLong("agencia_actual_id"),

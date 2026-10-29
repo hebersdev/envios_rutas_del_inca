@@ -6,7 +6,7 @@ public record CamionResponse(
         Long id,
         String placa,
         BigDecimal pesoMaximoKg,
-        BigDecimal volumenMaximoM3,
+        BigDecimal volumenMaximoM,
         Long agenciaBaseId,
         String agenciaBaseNombre,
         Long agenciaActualId,

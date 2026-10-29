@@ -6,7 +6,7 @@ public record Camion (
     Long id,
     String placa,
     BigDecimal pesoMaximoKg,
-    BigDecimal volumenMaximoM3,
+    BigDecimal volumenMaximoM,
     Long agenciaBaseId,
     Long agenciaActualId,
     String estado,

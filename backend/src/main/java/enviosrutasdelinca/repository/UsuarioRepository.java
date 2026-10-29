@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import enviosrutasdelinca.model.Usuario;
 import enviosrutasdelinca.dto.UsuarioAdministracionResponse;
+import enviosrutasdelinca.dto.MotorizadoRepartoResponse;
 
 @Repository
 public class UsuarioRepository {
@@ -73,6 +74,20 @@ public class UsuarioRepository {
             """;
 
         return jdbcTemplate.query(sql, this::mapearUsuarioAdministracion);
+    }
+
+    public List<MotorizadoRepartoResponse> listarMotorizados(Long sede) {
+        return jdbcTemplate.query("""
+                SELECT u.id, u.nombre, a.nombre AS sede, COUNT(e.id) AS pendientes
+                FROM usuarios u JOIN agencias a ON a.id = u.agencia_id
+                LEFT JOIN envios e ON e.motorizado_id = u.id AND e.modalidad = 'DOMICILIO'
+                    AND e.estado IN ('LLEGO_A_AGENCIA_DESTINO', 'EN_REPARTO')
+                WHERE u.rol = 'MOTORIZADO' AND u.activo
+                    AND (CAST(? AS BIGINT) IS NULL OR u.agencia_id = ?)
+                GROUP BY u.id, u.nombre, a.nombre ORDER BY COUNT(e.id), LOWER(u.nombre), u.id
+                """, (rs, fila) -> new MotorizadoRepartoResponse(
+                        rs.getLong("id"), rs.getString("nombre"), rs.getLong("pendientes"),
+                        rs.getString("sede")), sede, sede);
     }
 
     public Optional<UsuarioAdministracionResponse> buscarPersonalActivo(long id) {

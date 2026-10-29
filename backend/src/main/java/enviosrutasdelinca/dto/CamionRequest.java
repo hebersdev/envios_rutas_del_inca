@@ -16,7 +16,7 @@ public record CamionRequest(
         @NotNull(message = "La capacidad de volumen es obligatoria.")
         @DecimalMin(value = "0.01", message = "La capacidad de volumen debe ser mayor a 0.")
         @Digits(integer = 8, fraction = 2, message = "La capacidad de volumen admite hasta 2 decimales.")
-        BigDecimal volumenMaximoM3,
+        BigDecimal volumenMaximoM,
         @NotNull(message = "Selecciona la sede base.")
         @Positive(message = "La sede base no es válida.")
         Long agenciaBaseId) {
