@@ -1,13 +1,11 @@
 package enviosrutasdelinca.controller;
 
 import java.math.BigDecimal;
-import java.util.Map;
 
-import org.springframework.http.*;
-import org.springframework.validation.FieldError;
-import org.springframework.web.bind.MethodArgumentNotValidException;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.server.ResponseStatusException;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import enviosrutasdelinca.dto.CotizacionResponse;
 import enviosrutasdelinca.service.CotizacionService;
@@ -28,32 +26,11 @@ public class CotizacionController {
             @RequestParam long origenId,
             @RequestParam long destinoId,
             @RequestParam BigDecimal pesoKg,
+            @RequestParam(required = false) BigDecimal altoCm,
+            @RequestParam(required = false) BigDecimal anchoCm,
+            @RequestParam(required = false) BigDecimal largoCm,
             @RequestParam ModalidadEnvio modalidad) {
-        return cotizacionService.cotizar(origenId, destinoId, pesoKg, modalidad);
-    }
-
-    @ExceptionHandler(ResponseStatusException.class)
-    public ResponseEntity<Map<String, String>> manejarEstado(
-            ResponseStatusException error) {
-        return ResponseEntity.status(error.getStatusCode())
-                .body(Map.of("mensaje", error.getReason() == null
-                        ? "La solicitud no es válida."
-                        : error.getReason()));
-    }
-
-    @ExceptionHandler(IllegalArgumentException.class)
-    public ResponseEntity<Map<String, String>> manejarSolicitudInvalida(
-            IllegalArgumentException error) {
-        return ResponseEntity.badRequest().body(Map.of("mensaje", error.getMessage()));
-    }
-
-    @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<Map<String, String>> manejarValidacion(
-            MethodArgumentNotValidException error) {
-        FieldError campo = error.getBindingResult().getFieldError();
-        return ResponseEntity.badRequest().body(Map.of(
-                "mensaje",
-                campo == null ? "La solicitud no es válida." : campo.getDefaultMessage()
-        ));
+        return cotizacionService.cotizar(
+                origenId, destinoId, pesoKg, altoCm, anchoCm, largoCm, modalidad);
     }
 }
