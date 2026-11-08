@@ -1,51 +1,60 @@
-import { useState } from "react";
-import type { FormEvent } from "react";
-import "../BusquedaEnvio/BusquedaEnvio.css";
+import { type FormEvent, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { normalizarCodigo } from "../../Servicios/Seguimiento";
 import SearchIcon from "../Iconos/SearchIcon";
+import "./BusquedaEnvio.css";
 
-function BusquedaEnvio() {
-    const [codigoSeguimiento, setCodigoSeguimiento] = useState("");
+type BusquedaEnvioProps = {
+  codigoInicial?: string;
+  onBuscar?: (codigo: string) => void;
+  titulo?: string;
+};
 
-    const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
-        event.preventDefault();
+export default function BusquedaEnvio({
+  codigoInicial = "",
+  onBuscar,
+  titulo = "Conoce dónde se encuentra tu envío",
+}: BusquedaEnvioProps) {
+  const navegar = useNavigate();
+  const [codigoSeguimiento, setCodigoSeguimiento] = useState(codigoInicial);
 
-        const codigo = codigoSeguimiento.trim();
+  function handleSubmit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
 
-        if (!codigo) {
-            return;
-        }
+    const codigo = normalizarCodigo(codigoSeguimiento);
+    if (!codigo) return;
 
-    };
+    if (onBuscar) {
+      onBuscar(codigo);
+      return;
+    }
 
-    return (
-        <div className="busqueda-envio">
-            <h2>Conoce dónde se encuentra tu envío</h2>
+    navegar(`/seguimiento/${encodeURIComponent(codigo)}`);
+  }
 
-            <form onSubmit={handleSubmit}>
-                <input
-                    type="text"
-                    value={codigoSeguimiento}
-                    onChange={(event) =>
-                        setCodigoSeguimiento(event.target.value)
-                    }
-                    placeholder="Ingresa tu código de seguimiento..."
-                    aria-label="Código de seguimiento"
-                    autoComplete="off"
-                />
+  return (
+    <div className="busqueda-envio">
+      <h2>{titulo}</h2>
 
-                <button type="submit" aria-label="Buscar envío">
-                    <SearchIcon />
-                </button>
-            </form>
+      <form onSubmit={handleSubmit}>
+        <input
+          type="text"
+          value={codigoSeguimiento}
+          onChange={(event) => setCodigoSeguimiento(event.target.value)}
+          placeholder="Ingresa tu código de seguimiento..."
+          aria-label="Código de seguimiento"
+          autoComplete="off"
+        />
 
-            <button className="boton-ayuda" type="button">
-                <span className="info-icon" aria-hidden="true">
-                    i
-                </span>
-                <span>¿Dónde está mi código de seguimiento?</span>
-            </button>
-        </div>
-    );
+        <button type="submit" aria-label="Buscar envío">
+          <SearchIcon />
+        </button>
+      </form>
+
+      <button className="boton-ayuda" type="button">
+        <span className="info-icon" aria-hidden="true">i</span>
+        <span>¿Dónde está mi código de seguimiento?</span>
+      </button>
+    </div>
+  );
 }
-
-export default BusquedaEnvio;

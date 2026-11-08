@@ -1,0 +1,159 @@
+.seguimiento-etapas {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  list-style: none;
+  padding: 32px 0;
+}
+
+.seguimiento-etapa {
+  position: relative;
+  min-width: 0;
+  padding: 0 20px;
+  text-align: center;
+  color: var(--color-texto-gris);
+}
+
+.seguimiento-etapa::before {
+  content: "";
+  position: absolute;
+  height: 2px;
+  background: var(--borde-color-gris);
+  top: 106px;
+  left: calc(-50% + 60px);
+  width: calc(100% - 120px);
+}
+
+.seguimiento-etapa:first-child::before {
+  display: none;
+}
+
+.seguimiento-etapa h3 {
+  min-height: 48px;
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.seguimiento-icono {
+  display: grid;
+  place-items: center;
+  width: 100px;
+  height: 100px;
+  margin: 8px auto 14px;
+  border: 2px solid var(--borde-color-gris);
+  border-radius: 50%;
+  background: var(--color-blanco);
+}
+
+.seguimiento-icono svg {
+  width: 64px;
+  height: 64px;
+}
+
+.seguimiento-etapa[data-alcanzada="true"] {
+  color: var(--color-naranja);
+}
+
+.seguimiento-etapa[data-alcanzada="true"]::before {
+  background: var(--color-naranja);
+}
+
+.seguimiento-etapa[data-alcanzada="true"] .seguimiento-icono {
+  border-color: var(--color-naranja);
+}
+
+.seguimiento-resumen {
+  min-height: 48px;
+  font-size: 0.86rem;
+}
+
+.seguimiento-etapa .seguimiento-detalle {
+  display: inline-block;
+  margin: 16px auto 8px;
+  padding: 6px 14px;
+  border-radius: 999px;
+  background: var(--color-naranja);
+  color: var(--color-blanco);
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.seguimiento-eventos {
+  list-style: none;
+  padding: 8px 14px;
+  text-align: left;
+}
+
+.seguimiento-eventos li {
+  position: relative;
+  padding: 0 0 24px 20px;
+  border-left: 2px solid var(--borde-color-gris);
+  font-size: 0.8rem;
+}
+
+.seguimiento-eventos li:last-child {
+  border-left-color: transparent;
+  padding-bottom: 0;
+}
+
+.seguimiento-eventos li::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -8px;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--color-naranja);
+}
+
+.seguimiento-eventos time {
+  display: block;
+  margin-bottom: 6px;
+  color: var(--color-texto-gris);
+}
+
+.seguimiento-eventos time span {
+  display: block;
+}
+
+.seguimiento-eventos strong {
+  display: block;
+}
+
+.seguimiento-eventos p,
+.seguimiento-sineventos {
+  color: var(--color-texto-gris);
+}
+
+@media (max-width: 800px) {
+  .seguimiento-etapas {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 24px;
+    padding: 24px 0;
+  }
+
+  .seguimiento-etapa {
+    padding: 0 14px 24px;
+    border-bottom: 2px solid var(--borde-color-gris);
+  }
+
+  .seguimiento-etapa::before {
+    display: none;
+  }
+
+  .seguimiento-etapa:last-child {
+    border-bottom: 0;
+    padding-bottom: 0;
+  }
+
+  .seguimiento-etapa h3,
+  .seguimiento-resumen {
+    min-height: 0;
+  }
+
+  .seguimiento-eventos {
+    max-width: 320px;
+    margin: 0 auto;
+  }
+}

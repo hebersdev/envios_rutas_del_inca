@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
-import LogoRutasDelInca from "../../imagenes/LogoRutasDelIncaColor.png";
+import LogoRutasDelInca from "../../imagenes/LogoRutasDelIncaColor.webp";
 import { useAutenticacion } from "../../Context/UseAutenticacion";
 import { cerrarSesion as solicitarCierre } from "../../Servicios/Autenticacion";
 import { opcionesMenu } from "../../Configuracion/menuPorRol";

@@ -1,0 +1,252 @@
+.cotizar-pagina {
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: calc(100vh - 76px);
+  min-height: calc(100dvh - 76px);
+  padding: 20px;
+}
+
+.cotizar-fondo {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: -1;
+  pointer-events: none;
+}
+
+.cotizar-contenedor {
+  position: relative;
+  z-index: 1;
+  width: min(100%, 760px);
+  margin: 0 auto;
+  padding: clamp(20px, 3vh, 32px);
+  border-radius: 18px;
+  background: var(--color-gris-translucido);
+  backdrop-filter: blur(10px);
+}
+
+.cotizar-contenedor h1 {
+  margin-top: 4px;
+  color: var(--color-blanco);
+  font-size: clamp(1.8rem, 4vw, 2.5rem);
+}
+
+.cotizar-nota {
+  color: var(--color-blanco);
+}
+
+.cotizar-formulario {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+  margin-top: 20px;
+}
+
+.cotizar-formulario label {
+  display: grid;
+  gap: 7px;
+  color: var(--color-blanco);
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.cotizar-formulario input[type="number"]::-webkit-inner-spin-button,
+.cotizar-formulario input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.cotizar-formulario input[type="number"] {
+  appearance: textfield;
+  -moz-appearance: textfield;
+}
+
+.cotizar-formulario input,
+.cotizar-formulario select {
+  width: 100%;
+  min-height: 42px;
+  padding: 8px 12px;
+  border: none;
+  border-radius: 8px;
+  background: rgba(252, 252, 252, 0.779);
+  color: var(--color-texto-principal);
+  font: inherit;
+  font-weight: 400;
+}
+
+.cotizar-formulario input:focus,
+.cotizar-formulario select:focus {
+  outline: none;
+}
+
+.cotizar-medidas {
+  grid-column: 1 / -1;
+  padding: 10px 14px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px dashed rgba(255, 255, 255, 0.35);
+  color: var(--color-blanco);
+}
+
+.cotizar-medidas summary {
+  cursor: pointer;
+  font-weight: 700;
+  font-size: 0.92rem;
+  padding: 4px 0;
+  list-style: none;
+}
+
+.cotizar-medidas summary::-webkit-details-marker {
+  display: none;
+}
+
+.cotizar-medidas summary::before {
+  content: "▸ ";
+  display: inline-block;
+  transition: transform 0.15s ease;
+}
+
+.cotizar-medidas[open] summary::before {
+  transform: rotate(90deg);
+}
+
+.cotizar-medidas-ayuda {
+  margin: 6px 0 12px;
+  font-size: 0.8rem;
+  line-height: 1.4;
+  opacity: 0.85;
+}
+
+.cotizar-medidas-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.cotizar-boton {
+  grid-column: 1 / -1;
+  min-height: 44px;
+  border: 0;
+  border-radius: 9px;
+  background: var(--color-celeste);
+  color: var(--color-blanco);
+  cursor: pointer;
+  font: inherit;
+  font-weight: 700;
+}
+
+.cotizar-boton:disabled {
+  cursor: wait;
+  opacity: 0.65;
+}
+
+.cotizar-resultado {
+  display: grid;
+  margin-top: 18px;
+  padding: 16px;
+  border-radius: 12px;
+  background: transparent;
+  border: 2px solid var(--borde-color-gris);
+  gap: 10px;
+}
+
+.cotizar-resultado > div {
+  display: flex;
+  justify-content: center;
+  gap: 5px;
+}
+
+.cotizar-resultado .cotizar-total {
+  color: var(--color-blanco);
+  font-size: 1.2rem;
+}
+
+.cotizar-detalle-volumen {
+  margin: 0;
+  padding: 8px 12px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--color-blanco);
+  font-size: 0.82rem;
+  line-height: 1.45;
+  text-align: center;
+}
+
+.cotizar-resultado p,
+.cotizar-nota {
+  font-size: 0.8rem;
+}
+
+.cotizar-nota {
+  margin-top: 14px;
+}
+
+.cotizar-nota a {
+  color: var(--color-naranja);
+  font-weight: 700;
+}
+
+.cotizar-error {
+  margin-top: 14px;
+  padding: 12px;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--color-blanco);
+  border: 2px solid var(--color-blanco);
+}
+
+.cotizar-error button {
+  margin-top: 8px;
+  padding: 7px 10px;
+  border: 2px solid currentColor;
+  border-radius: 7px;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+  font: inherit;
+}
+
+@media (max-width: 600px) {
+  .cotizar-pagina {
+    padding: 12px;
+  }
+
+  .cotizar-contenedor {
+    width: 100%;
+    padding: 18px;
+  }
+
+  .cotizar-formulario {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .cotizar-medidas-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-height: 650px) {
+  .cotizar-contenedor {
+    padding: 14px 22px;
+  }
+
+  .cotizar-formulario {
+    gap: 10px;
+    margin-top: 12px;
+  }
+
+  .cotizar-contenedor h1 {
+    font-size: 1.7rem;
+  }
+
+  .cotizar-nota {
+    margin-top: 10px;
+  }
+}

@@ -1,0 +1,62 @@
+.viajes-pagina {
+  display: grid;
+  gap: 22px;
+  min-width: 0;
+  color: var(--color-texto-principal);
+}
+
+.viajes-encabezado {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+}
+
+.viajes-pagina button,
+.viajes-filtro select {
+  min-height: 42px;
+  padding: 9px 14px;
+  border: 2px solid var(--borde-color-gris);
+  border-radius: 8px;
+  background: var(--color-blanco);
+  color: var(--color-texto-principal);
+  font: inherit;
+}
+
+.viajes-pagina button {
+  cursor: pointer;
+}
+
+.viajes-encabezado > button {
+  background: var(--color-naranja);
+  color: var(--color-blanco);
+  border-color: var(--color-naranja);
+}
+
+.viajes-pagina button:disabled {
+  opacity: 0.55;
+  cursor: wait;
+}
+
+.viajes-filtro {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  align-items: center;
+}
+
+.viajes-lista,
+.viajes-pendientes {
+  display: grid;
+  gap: 20px;
+  list-style: none;
+  padding: 0;
+}
+
+.viajes-pendientes li {
+  padding: 18px;
+  border: 2px solid var(--borde-color-gris);
+  border-radius: 12px;
+  overflow-wrap: anywhere;
+}

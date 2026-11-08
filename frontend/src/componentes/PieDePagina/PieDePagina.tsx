@@ -1,5 +1,5 @@
-import LogoRutasDelInca from '../../imagenes/logoRutasDelInca.png';
-import ImagenLibroDeReclamaciones from '../../imagenes/ImagenLibroDeReclamaciones.png';
+import LogoRutasDelInca from '../../imagenes/logoRutasDelInca.webp';
+import ImagenLibroDeReclamaciones from '../../imagenes/ImagenLibroDeReclamaciones.webp';
 import './PieDePagina.css';
 
 function PieDePagina() {

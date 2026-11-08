@@ -1,0 +1,118 @@
+.viaje-detalle {
+  display: grid;
+  gap: 12px;
+  padding: 18px;
+  border-radius: 12px;
+  background: var(--color-etiqueta);
+}
+
+.viaje-detalle > header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.viaje-detalle h3 {
+  margin: 0;
+  color: var(--color-texto-principal);
+  font-size: 1rem;
+}
+
+.viaje-detalle > header span {
+  color: var(--color-texto-gris);
+  font-size: 0.875rem;
+}
+
+.viaje-envios {
+  display: grid;
+  gap: 10px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  max-height: 360px;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding-right: 4px;
+}
+
+.viaje-envios li {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 14px;
+  border: 1px solid var(--color-gris-claro);
+  border-radius: 10px;
+  background: var(--color-blanco);
+}
+
+.viaje-envio-identidad {
+  display: grid;
+  gap: 5px;
+}
+
+.viaje-envio-identidad strong {
+  color: var(--color-texto-principal);
+  letter-spacing: 0.03em;
+}
+
+.viaje-envio-identidad span {
+  color: var(--color-texto-gris);
+  font-size: 0.875rem;
+}
+
+.viaje-envios dl {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin: 0;
+}
+
+.viaje-envios dt {
+  color: var(--color-texto-gris);
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.viaje-envios dd {
+  margin: 3px 0 0;
+  color: var(--color-texto-principal);
+  font-size: 0.875rem;
+  font-weight: 700;
+}
+
+.viaje-detalle-cargando,
+.viaje-detalle-error {
+  margin: 0;
+  padding: 14px;
+  border-radius: 10px;
+  background: var(--color-etiqueta);
+}
+
+.viaje-detalle-error p {
+  margin-top: 0;
+  color: var(--color-advertencia);
+}
+
+.viaje-detalle-error button {
+  min-height: 38px;
+  padding: 7px 12px;
+  border: 1px solid var(--color-gris-claro);
+  border-radius: 8px;
+  background: var(--color-blanco);
+  color: var(--color-texto-principal);
+  cursor: pointer;
+  font: inherit;
+  font-weight: 700;
+}
+
+@media (max-width: 640px) {
+  .viaje-envios li {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}

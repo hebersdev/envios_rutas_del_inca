@@ -1,0 +1,44 @@
+.envio-descargas {
+  display: grid;
+  gap: 12px;
+  width: 100%;
+  min-width: 0;
+}
+
+.envio-documentos {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.envio-documentos button {
+  padding: 10px 14px;
+  border: 2px solid var(--borde-color-gris);
+  border-radius: 8px;
+  background: var(--color-blanco);
+  color: var(--color-texto-principal);
+  font: inherit;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.envio-documentos button:first-child {
+  border-color: var(--color-texto-principal);
+  background: var(--color-texto-principal);
+  color: var(--color-blanco);
+}
+
+.envio-documentos button:disabled {
+  opacity: 0.55;
+  cursor: wait;
+}
+
+.envio-descargas > p {
+  font-size: 0.8rem;
+  color: var(--color-texto-gris);
+}
+
+.envio-descargas .envio-error {
+  color: var(--color-advertencia);
+}

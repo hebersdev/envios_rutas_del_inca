@@ -18,7 +18,7 @@ export default function ModalCamion({
 }: ModalCamionProps) {
   const [placa, setPlaca] = useState(camion?.placa ?? "");
   const [pesoMaximoKg, setPesoMaximoKg] = useState(String(camion?.pesoMaximoKg ?? ""));
-  const [volumenMaximoM3, setVolumenMaximoM3] = useState(String(camion?.volumenMaximoM3 ?? ""));
+  const [volumenMaximoM, setVolumenMaximoM] = useState(String(camion?.volumenMaximoM ?? ""));
   const [agenciaBaseId, setAgenciaBaseId] = useState(String(camion?.agenciaBaseId ?? ""));
   const [error, setError] = useState("");
   const [guardando, setGuardando] = useState(false);
@@ -41,7 +41,7 @@ export default function ModalCamion({
       await onGuardar({
         placa: placa.trim().toUpperCase(),
         pesoMaximoKg: Number(pesoMaximoKg),
-        volumenMaximoM3: Number(volumenMaximoM3),
+        volumenMaximoM: Number(volumenMaximoM),
         agenciaBaseId: Number(agenciaBaseId),
       });
     } catch (errorSolicitud: unknown) {
@@ -96,8 +96,8 @@ export default function ModalCamion({
                 type="number"
                 min="0.01"
                 step="0.01"
-                value={volumenMaximoM3}
-                onChange={(evento) => setVolumenMaximoM3(evento.target.value)}
+                value={volumenMaximoM}
+                onChange={(evento) => setVolumenMaximoM(evento.target.value)}
                 required
               />
             </label>

@@ -1,8 +1,8 @@
 import "../SeccionEleccion/SeccionEleccion.css"
-import ImagenCoberturaNacional from "../../imagenes/ImagenCoberturaNacional.png"
-import ImagenFlotaVehicularModerna from "../../imagenes/ImagenFlotaVehicularModerna.png"
-import ImagenServicioPersonalizado from "../../imagenes/ImagenServicioPersonalizado.png"
-import ImagenMonitoreoPermanente from "../../imagenes/ImagenMonitoreoPermanente.png"
+import ImagenCoberturaNacional from "../../imagenes/ImagenCoberturaNacional.webp"
+import ImagenFlotaVehicularModerna from "../../imagenes/ImagenFlotaVehicularModerna.webp"
+import ImagenServicioPersonalizado from "../../imagenes/ImagenServicioPersonalizado.webp"
+import ImagenMonitoreoPermanente from "../../imagenes/ImagenMonitoreoPermanente.webp"
 
 interface Eleccion {
     imagen: string;

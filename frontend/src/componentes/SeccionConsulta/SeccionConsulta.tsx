@@ -1,5 +1,5 @@
 import "../SeccionConsulta/SeccionConsulta.css"
-import FondoInicioConsulta from "../../imagenes/fondoInicioRutasDelInca.png";
+import FondoInicioConsulta from "../../imagenes/fondoInicioRutasDelInca.webp";
 import TarjetaConsulta from "../TarjetaConsulta/TarjetaConsulta";
 import { tarjetasConsulta } from "../../Datos/tarjetasConsulta";
 import BusquedaEnvio from "../BusquedaEnvio/BusquedaEnvio";

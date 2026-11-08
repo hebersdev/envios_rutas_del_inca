@@ -1,0 +1,26 @@
+.entrega-tarjeta {
+  display: grid;
+  gap: 8px;
+  min-width: 0;
+  padding: 18px;
+  border: 2px solid var(--borde-color-gris);
+  border-radius: 12px;
+  background: var(--color-blanco);
+  overflow-wrap: anywhere;
+}
+.entrega-tarjeta p { margin: 0; }
+.entrega-tarjeta[data-consulta] { background: var(--color-etiqueta); color: var(--color-texto-gris); }
+.entrega-identidad { display: flex; flex-wrap: wrap; gap: 14px; align-items: center; }
+.entrega-identidad > div { flex: 1; min-width: 0; }
+.entrega-identidad input { width: 20px; height: 20px; margin: 0; accent-color: var(--color-naranja); }
+.entrega-seleccion { display: inline-flex; align-items: center; justify-content: center; min-width: 42px; min-height: 42px; }
+.entrega-codigo { display: block;
+}
+.entrega-estado { padding: 8px; border-radius: 8px; background: var(--color-etiqueta); }
+.entrega-direccion { color: var(--color-texto-principal); }
+.entrega-acciones { display: flex; flex-wrap: wrap; gap: 14px; align-items: center; }
+.entrega-telefono { display: inline-flex; align-items: center; min-height: 42px; color: var(--color-texto-principal); }
+@media (max-width: 480px) {
+  .entrega-estado { width: 100%; }
+  .entrega-acciones { align-items: stretch; flex-direction: column; }
+}

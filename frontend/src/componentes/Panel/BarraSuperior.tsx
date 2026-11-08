@@ -45,7 +45,8 @@ export default function BarraSuperior({ onAbrirMenu }: BarraSuperiorProps) {
       </button>
       <div className="panel-barra-identidad">
         <span className="panel-barra-nombre">{usuario?.nombre}</span>
-        <span className="panel-barra-rol">{usuario?.rol.replaceAll("_", " ")}</span>
+        <span className="panel-barra-rol">{usuario?.rol === "ENCARGADO_LOGISTICA"
+          ? "Coordinador de logística" : usuario?.rol.replaceAll("_", " ")}</span>
         {usuario?.agenciaId && (
           <span className="panel-barra-sede" title={errorAgencia || undefined}>
             {errorAgencia ? "Sede no disponible" : nombreAgencia || "Cargando sede..."}

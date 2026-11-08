@@ -1,4 +1,4 @@
-import FondoExperienciaRutasDelInca from "../../imagenes/FondoExperienciaRutasDelInca.png";
+import FondoExperienciaRutasDelInca from "../../imagenes/FondoExperienciaRutasDelInca.webp";
 import "./SeccionExperiencia.css";
 import useContador from "./UserContador";
 

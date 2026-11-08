@@ -1,0 +1,6 @@
+.misentregas-seccion { display: grid; gap: 20px; min-width: 0; }
+.misentregas-seleccion { display: flex; gap: 8px; align-items: center; min-height: 42px; }
+.misentregas-seleccion input { width: 20px; height: 20px; accent-color: var(--color-naranja); }
+@media (max-width: 480px) {
+  .misentregas-seccion .entrega-acciones > button { width: 100%; }
+}

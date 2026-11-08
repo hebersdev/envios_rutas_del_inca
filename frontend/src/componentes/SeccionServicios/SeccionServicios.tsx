@@ -1,7 +1,7 @@
-import ImagenServicioRegular from "../../imagenes/ImagenServicioRegular.png"
-import ImagenServicioRecojo from "../../imagenes/ImagenServicioRecojo.png"
-import ImagenServicioCarga from "../../imagenes/ImagenServicioCarga.png"
-import ImagenSolucionesLogisticas from "../../imagenes/ImagenSolucionesLogisticas.png"
+import ImagenServicioRegular from "../../imagenes/ImagenServicioRegular.webp"
+import ImagenServicioRecojo from "../../imagenes/ImagenServicioRecojo.webp"
+import ImagenServicioCarga from "../../imagenes/ImagenServicioCarga.webp"
+import ImagenSolucionesLogisticas from "../../imagenes/ImagenSolucionesLogisticas.webp"
 import "../SeccionServicios/SeccionServicios.css"
 
 interface Servicio {

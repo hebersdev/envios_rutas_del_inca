@@ -1,0 +1,18 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+
+:root {
+  --color-blanco: #FFFFFF;
+  --color-texto-principal: #1e293b;
+  --color-naranja: #F49518;
+  --color-texto-gris: #63687A;
+  --color-gris-claro: #EBEBEB;
+  --color-gris-translucido: rgba(101, 101, 101, 0.42);
+  --color-sombra: rgba(15, 23, 42, 0.08);
+  --borde-color-gris: #E1E5E9;
+  --fondo-color-negro: #000000;
+  --color-celeste: #039AB2;
+  --color-fondo-negro-transparente:#0F172A84;
+  --color-advertencia: #B42318;
+  --color-permitido: #11a462;
+  --color-etiqueta: #F3F3F3;
+}
